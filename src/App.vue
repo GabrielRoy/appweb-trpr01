@@ -1,10 +1,16 @@
 <script setup lang="ts">
-import MainPage from './components/MainPageComponent.vue';
+import MainPageComponent from './components/MainPageComponent.vue';
 </script>
 
 <template>
-  <MainPage />
+  <div>
+    <MainPageComponent />
+  </div>
 </template>
 
-<style scoped>
+<style>
+html, body {
+  background-color: #222;
+  color: white;
+}
 </style>
