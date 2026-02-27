@@ -105,20 +105,19 @@ Décrire la structure du projet et les responsabilités.
 ### Outil(s) utilisé(s)
 
 - _Nom des outils (ex. ChatGPT, Copilot, etc.)_
+- ChatGPT et copilot
     
 
 ### Comment l’IA a été utilisée
 
 Décrire concrètement :
 
-- brainstorming / planification
-- aide au debug
-- clarification TypeScript/Vue
-- suggestions UI/CSS
-- génération d’exemples (puis adaptation)
+- Aide au débug
+- css (visuel du site)
     
 
 ### À quel endroit
+_Où le CSS de bootstrap est présent donc tous les fichiers de components_
 
 #### Nom du fichier 1
 

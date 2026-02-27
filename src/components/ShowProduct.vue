@@ -4,6 +4,7 @@ import type { Product } from "../scripts/productType";
 defineProps<{
   product: Product;
 }>();
+
 </script>
 <template>
   <div class="border border-secondary border-2 rounded-3 p-3">

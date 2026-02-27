@@ -32,6 +32,6 @@
 | --: | :------: | :----: | ------------- | :-----------: | ------------------------------------------- | ----------------- |
 |     |          |        |               |               |                                             |                   |
 | A1  |   MUST   |   🟦   |End MainPage.vue|Base d'un site| La page affiche.                             |                   |
-|     |          |        |               |               |                                             |                   |
-|     |          |        |               |               |                                             |                   |
+| B1  |   MUST   |	 🟦   |Finir et implémenter le formulaire pour qu'il intéragisse avec le site|Le formulaire affiche et fonctionne pour la modification et création. | 2 et 1                                             |                   |
+| B2    |  MUST  |   🟦   |Finir l'affichage du produit un fois cliqué. | 7              |                                             |                   |
 |     |          |        |               |               |                                             |                   |

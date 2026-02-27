@@ -45,7 +45,23 @@ let products = ref<Product[]>([
 
 let searchQuery = ref<string>("");
 
-let selectedProduct = ref<Product | null>(null);
+let selectedProduct = ref<Product | null>({
+  id: 1,
+  name: "Produit Test",
+  description: "Description du produit test",
+  price: 25.0,
+  stock: 10,
+});
+
+let isUpdatingProduct = ref<boolean>(false);
+
+let productToUpdate = ref<Product | null>({
+  id: 1,
+  name: "Produit Test",
+  description: "Description du produit test",
+  price: 25.0,
+  stock: 10,
+});
 
 let errorMessages = ref<string[]>([]);
 
@@ -101,8 +117,9 @@ function exportProductsInCSV() {
     <div>
       <ProductList v-model="products" @delete-product="deleteProduct" />
     </div>
+
     <div>
-      <ProductForm @add-product="addProduct" @update-product="updateProduct" />
+      <ProductForm v-bind:updatedProduct="productToUpdate" :isUpdating="isUpdatingProduct" v-if="!isUpdatingProduct" @add-product="addProduct" @update-product="updateProduct"/>
     </div>
 
     <div v-if="selectedProduct">
