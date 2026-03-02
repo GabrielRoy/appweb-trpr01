@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import ProductForm from "./ProductFormComponent.vue";
+import AddProductForm from "./AddProductFormComponent.vue";
 import type { Product } from "../scripts/productType";
 import ProductList from "./ProductListComponent.vue";
 import ShowProduct from "./ShowProduct.vue";
 import { ref } from "vue";
+import UpdateProductForm from "./UpdateProductFormComponent.vue";
 
 let products = ref<Product[]>([
   {
@@ -115,11 +116,14 @@ function exportProductsInCSV() {
   <h2>Système de Gestion de Produits</h2>
   <div>
     <div>
-      <ProductList v-model="products" @delete-product="deleteProduct" />
+      <ProductList :products="products" @delete-product="deleteProduct" />
     </div>
 
-    <div>
-      <ProductForm v-bind:updatedProduct="productToUpdate" :isUpdating="isUpdatingProduct" v-if="!isUpdatingProduct" @add-product="addProduct" @update-product="updateProduct"/>
+    <div v-if="!isUpdatingProduct">
+      <AddProductForm @create-product="addProduct"/>
+    </div>
+    <div v-if="isUpdatingProduct">
+      <UpdateProductForm v-bind:product="productToUpdate!" @update-product="updateProduct"/>
     </div>
 
     <div v-if="selectedProduct">

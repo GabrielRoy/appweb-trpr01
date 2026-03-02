@@ -2,27 +2,22 @@
 import { ref } from "vue";
 import type { Product } from "../scripts/productType";
 
-const props = defineProps<{
-  product: Product;
-  isUpdating: boolean;
-}>();
-
 const emit = defineEmits<{
-  (e: "update-product", updatedProduct: Product): void;
   (e: "create-product", newProduct: Product): void;
 }>();
 
-let newId = ref<number>(props.product.id);
-let newName = ref<string>(props.product.name);
-let newDescription = ref<string>(props.product.description);
-let newPrice = ref<number>(props.product.price);
-let newStock = ref<number>(props.product.stock);
+let newId = ref<number>(0);
+let newName = ref<string>("");
+let newDescription = ref<string>("");
+let newPrice = ref<number>(0);
+let newStock = ref<number>(0);
+
 </script>
 <template>
   <div class="pt-4">
     <h3 class="pb-2">Création de jeu vidéo</h3>
     <div>
-      <div v-if="!isUpdating">
+      <div>
         <label for="product-id">ID du jeu vidéo:</label>
         <input
           type="text"
@@ -68,7 +63,6 @@ let newStock = ref<number>(props.product.stock);
         />
       </div>
       <button
-        v-if="!props.isUpdating"
         @click="
           emit('create-product', {
             id: newId,
@@ -80,20 +74,6 @@ let newStock = ref<number>(props.product.stock);
         "
       >
         Ajouter le produit
-      </button>
-      <button
-        v-else
-        @click="
-          emit('update-product', {
-            id: props.product.id,
-            name: newName,
-            description: newDescription,
-            price: newPrice,
-            stock: newStock,
-          })
-        "
-      >
-        Modifier le produit
       </button>
     </div>
   </div>

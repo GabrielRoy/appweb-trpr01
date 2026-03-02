@@ -1,18 +1,24 @@
 <script setup lang="ts">
+import { ref } from "vue";
+import type { Product } from "../scripts/productType";
+
+const props = defineProps<{
+  product: Product;
+}>();
+
+const emit = defineEmits<{
+  (e: "update-product", updatedProduct: Product): void;
+}>();
+
+let newName = ref<string>(props.product.name);
+let newDescription = ref<string>(props.product.description);
+let newPrice = ref<number>(props.product.price);
+let newStock = ref<number>(props.product.stock);
 </script>
 <template>
   <div class="pt-4">
     <h3 class="pb-2">Modification du jeu vidéo</h3>
     <div>
-      <div>
-        <label for="product-id">ID du jeu vidéo:</label>
-        <input
-          type="text"
-          v-model="newId"
-          placeholder="ID du jeu vidéo"
-          id="product-id"
-        />
-      </div>
       <div>
         <label for="product-name">Nom du jeu vidéo:</label>
         <input
@@ -57,7 +63,7 @@
             description: newDescription,
             price: newPrice,
             stock: newStock,
-          } as Product)
+          })
         "
       >
         Modifier le produit
