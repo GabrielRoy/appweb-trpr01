@@ -78,7 +78,9 @@ function addProduct(product: Product) {
 }
 
 function deleteProduct(id: number) {
-  products.value = products.value.filter((product) => product.id !== id);
+  products.value = products.value.filter(
+    (product: Product) => product.id !== id,
+  );
   confirmationMessage.value.push(
     `Le produit avec l'id ${id} a été supprimé avec succès.`,
   );
@@ -86,7 +88,7 @@ function deleteProduct(id: number) {
 
 function updateProduct(updatedProduct: Product) {
   const product: Product | undefined = products.value.find(
-    (product) => product.id === updatedProduct.id,
+    (product: Product) => product.id === updatedProduct.id,
   );
 
   if (product) {
@@ -110,20 +112,51 @@ function updateProduct(updatedProduct: Product) {
 function exportProductsInCSV() {
   //TODO: Implémenter l'exportation des produits en CSV
 }
+
+function showProduct(product: Product) {
+  selectedProduct.value = product;
+}
+
+function productToUpdateClick(product: Product) {
+  productToUpdate.value = product;
+  isUpdatingProduct.value = true;
+}
+
+
+//Codé par l'IA
+// Ref pour accéder au formulaire
+const addProductForm = ref<any>(null);
+// Fonction pour remplir le formulaire
+const duplicateProduct = (product: Product) => {
+  if (!addProductForm.value) return; // sécurité
+  addProductForm.value.newName = product.name;
+  addProductForm.value.newDescription = product.description;
+  addProductForm.value.newPrice = product.price;
+  addProductForm.value.newStock = product.stock;
+};
 </script>
 
 <template>
   <h2>Système de Gestion de Produits</h2>
   <div>
     <div>
-      <ProductList :products="products" @delete-product="deleteProduct" />
+      <ProductList
+        :products="products"
+        @delete-product="deleteProduct"
+        @show-product="showProduct"
+        @update-product="productToUpdateClick"
+        @duplicate-product="duplicateProduct"
+      />
     </div>
 
     <div v-if="!isUpdatingProduct">
-      <AddProductForm @create-product="addProduct"/>
+      <AddProductForm ref="addProductForm" @create-product="addProduct" />
     </div>
     <div v-if="isUpdatingProduct">
-      <UpdateProductForm v-bind:product="productToUpdate!" @update-product="updateProduct"/>
+      <UpdateProductForm
+        v-bind:product="productToUpdate!"
+        @update-product="updateProduct"
+      />
     </div>
 
     <div v-if="selectedProduct">
@@ -132,4 +165,20 @@ function exportProductsInCSV() {
   </div>
 </template>
 
-<style scoped></style>
+<style scoped>
+div > div {
+  margin-bottom: 2rem; /* ajustable selon le besoin */
+}
+
+/* Optionnel : titre */
+h2 {
+  margin-bottom: 1.5rem;
+  color: #fff; /* si thème sombre */
+}
+
+/* Si tu veux plus de style dark pour le conteneur principal */
+div {
+  color: #fff;
+  font-family: "Segoe UI", sans-serif;
+}
+</style>

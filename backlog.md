@@ -32,6 +32,10 @@
 | --: | :------: | :----: | ------------- | :-----------: | ------------------------------------------- | ----------------- |
 |     |          |        |               |               |                                             |                   |
 | A1  |   MUST   |   🟦   |End MainPage.vue|Base d'un site| La page affiche.                             |                   |
-| B1  |   MUST   |	 🟦   |Finir et implémenter le formulaire pour qu'il intéragisse avec le site|Le formulaire affiche et fonctionne pour la modification et création. | 2 et 1                                             |                   |
-| B2    |  MUST  |   🟦   |Finir l'affichage du produit un fois cliqué. | 7              |                                             |                   |
-|     |          |        |               |               |                                             |                   |
+| B1  |   MUST   |	 ✅   |Finir et implémenter le formulaire pour qu'il intéragisse avec le site|Le formulaire affiche et fonctionne pour la modification et création. | 2 et 1                                             |                   |
+| B2    |  MUST  |   ✅   |Finir l'affichage du produit un fois cliqué. | 7             |                                             |                   |
+| C1    | MUST     |  🟦    | Implémentation du supprimage              |  4             |                                             |                   |
+| C2  | MUST     |  ✅    | Afficher un produit                        |  7             | Le produit sélectionné apparaît correctement avec toutes ses informations |                   |
+| C3  | MUST     |  ✅    | Affichage en temps réel des quantités avec indicateur visuel | 8 | Les quantités se mettent à jour immédiatement et les couleurs changent selon la quantité (ex: vert, jaune, rouge) |                   |
+| C4  | MUST     |  ✅    | Notification lorsqu'un produit atteint un stock critique| 9 | Un message apparaît sous la liste indiquant tous les produits en stock critique |                   |
+| C3  | MUST     | 🟦     | Bouton "Dupliquer" qui préremplit un nouveau formulaire avec les données du produit sélectionné | 3             | - le formulaire de création se remplit avec les données du produit.seule la préremplissage est fait. | 

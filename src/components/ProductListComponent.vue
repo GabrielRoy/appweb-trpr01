@@ -1,17 +1,22 @@
 <script setup lang="ts">
 import type { Product } from "../scripts/productType";
+import { computed } from "vue";
 import ProductListItem from "./ProductListItemComponent.vue";
 
-defineProps<{
+const props = defineProps<{
   products: Product[];
 }>();
 
 defineEmits<{
-  (e: "select-product", product: Product): void;
+  (e: "show-product", product: Product): void;
   (e: "update-product", product: Product): void;
   (e: "delete-product", productId: number): void;
+  (e: "duplicate-product", product: Product): void;
 }>();
 
+const criticalStocks = computed(() =>
+  props.products.filter((product: Product) => product.stock <= 3),
+);
 </script>
 <template>
   <h2>Liste des produits</h2>
@@ -21,8 +26,21 @@ defineEmits<{
         v-for="product in products"
         :key="product.id"
         :product="product"
-        @select-product="$emit('select-product', product)"
+        @show-product="$emit('show-product', product)"
+        @update-product="$emit('update-product', product)"
+        @delete-product="$emit('delete-product', product.id)"
+        @duplicate-product="$emit('duplicate-product', product)"
       />
+    </ul>
+  </div>
+
+  <!--Générer par l'IA-->
+  <div v-if="criticalStocks.length" class="notification-field">
+    <ul>
+      <li v-for="product in criticalStocks" :key="product.id">
+        ⚠️ Stock critique pour "{{ product.name }}" :
+        {{ product.stock }} restant
+      </li>
     </ul>
   </div>
 </template>
@@ -42,5 +60,24 @@ defineEmits<{
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+.notification-field {
+  background-color: #330000;
+  color: #f44336;
+  border: 1px solid #f44336;
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  margin-top: 1rem; /* espace avec la liste */
+  font-weight: bold;
+}
+
+.notification-field ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+
+.notification-field li {
+  line-height: 1.3rem;
 }
 </style>
