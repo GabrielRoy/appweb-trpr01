@@ -6,6 +6,12 @@ defineProps<{
   products: Product[];
 }>();
 
+defineEmits<{
+  (e: "select-product", product: Product): void;
+  (e: "update-product", product: Product): void;
+  (e: "delete-product", productId: number): void;
+}>();
+
 </script>
 <template>
   <h2>Liste des produits</h2>
@@ -15,6 +21,7 @@ defineProps<{
         v-for="product in products"
         :key="product.id"
         :product="product"
+        @select-product="$emit('select-product', product)"
       />
     </ul>
   </div>

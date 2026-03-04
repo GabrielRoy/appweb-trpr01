@@ -57,7 +57,7 @@ _Faire le formulaire de création et l'affiche des produits présents._
 
 ---
 
-## Séance 4 — _AAAA-MM-JJ_ (Durée : _XhYm_)
+## Séance 4 — _2026-03-03_ (Durée : _2h00_)
 **Objectif de la séance :**  
 …
 
