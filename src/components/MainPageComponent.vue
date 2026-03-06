@@ -61,8 +61,38 @@ function updateProduct(updatedProduct: Product) {
   isUpdatingProduct.value = false;
 }
 
+//Codé par l'IA
 function exportProductsInCSV() {
-  //TODO: Implémenter l'exportation des produits en CSV
+  if (!products.value.length) return;
+
+  // 1️⃣ Créer l'en-tête CSV
+  const headers = ["ID", "Nom", "Description", "Prix", "Stock"];
+  const csvRows = [headers.join(",")];
+
+  // 2️⃣ Ajouter les lignes des produits
+  products.value.forEach(product => {
+    const row = [
+      product.id,
+      `"${product.name.replace(/"/g, '""')}"`,         // échappe les guillemets
+      `"${product.description.replace(/"/g, '""')}"`,
+      product.price,
+      product.stock
+    ];
+    csvRows.push(row.join(","));
+  });
+
+  // 3️⃣ Générer le CSV complet
+  const csvString = csvRows.join("\n");
+
+  // 4️⃣ Créer un blob et déclencher le téléchargement
+  const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "produits.csv";
+  link.style.display = "none";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
 
 function showProduct(product: Product) {
@@ -102,11 +132,12 @@ const duplicateProduct = (product: Product) => {
 
     <div>
       <ProductList
-        :products="products"
-        @delete-product="deleteProduct"
-        @show-product="showProduct"
-        @update-product="productToUpdateClick"
-        @duplicate-product="duplicateProduct"
+      :products="products"
+      @delete-product="deleteProduct"
+      @show-product="showProduct"
+      @update-product="productToUpdateClick"
+      @duplicate-product="duplicateProduct"
+      @export-csv="exportProductsInCSV"
       />
     </div>
 

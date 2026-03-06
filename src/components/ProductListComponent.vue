@@ -12,6 +12,7 @@ defineEmits<{
   (e: "update-product", product: Product): void;
   (e: "delete-product", productId: number): void;
   (e: "duplicate-product", product: Product): void;
+  (e: "export-csv"): void;
 }>();
 
 const criticalStocks = computed(() =>
@@ -42,6 +43,11 @@ const criticalStocks = computed(() =>
         </td>
       </tr>
     </table>
+    <div class="export-container">
+      <button class="btn-export" @click="$emit('export-csv')">
+        Exporter CSV
+      </button>
+    </div>
   </div>
 
   <!--Générer par l'IA-->
@@ -97,5 +103,20 @@ const criticalStocks = computed(() =>
 
 .notification-field li {
   line-height: 1.3rem;
+}
+
+.btn-export {
+  background: #22c55e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.btn-export:hover {
+  background: #16a34a;
 }
 </style>

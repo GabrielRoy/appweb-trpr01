@@ -3,7 +3,7 @@
 > **Cours :** 420-W40-SF - Développement d’applications Web (Cégep de Sainte-Foy)
 > **Travail :** TP01 - Gestionnaire de produits
 > **Étudiant(e) :**  Gabriel Roy
-> **Repo GitHub :**  "https://github.com/GabrielRoy/appweb-trpr01" 
+> **Repo GitHub :**  "https://github.com/GabrielRoy/appweb-trpr01"
 > **Déploiement (GitHub Pages) :** {{ URL du site }}
 
 ---
@@ -133,6 +133,7 @@ Dans certain fichier avec des méthodes.__
 #### MainPageComponent
 
 - Ligne 128 à 136. Pour pouvoir envoyer les informations du produit à dupliquer au formulaire d'ajout pour qu'il se remplisse.
+- Ligne 66 à 96 : Pour coder la fonction qui permet d'obtenir l'inventaire sous forme de fichier excel.
 
 #### UpdateProductFormComponent
 
@@ -144,6 +145,7 @@ Dans certain fichier avec des méthodes.__
 - Ligne 54 à 59: Pour gérer le préremplissage des champs lors de la dupplication.
 
 #### ProductListComponent
+
 - Ligne 37 à 45: Pour gérer l'affichage des warnings des stock faibles.
 
 ### Exemples de prompts (2 à 5)
