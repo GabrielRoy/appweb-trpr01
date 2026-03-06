@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { Product } from "../scripts/productType";
+import type { Product } from "../scripts/product";
 
 const emit = defineEmits<{
   (e: "create-product", newProduct: Product): void;

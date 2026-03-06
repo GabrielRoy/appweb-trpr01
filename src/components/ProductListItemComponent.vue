@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Product } from "../scripts/productType";
+import type { Product } from "../scripts/product";
 const props = defineProps<{
   product: Product;
 }>();
@@ -19,154 +19,184 @@ defineEmits<{
 }>();
 </script>
 <template>
-  <li
+  <tr
     class="product-card"
     :class="stockClass(props.product.stock)"
     @click="$emit('show-product', props.product)"
   >
-    <div class="product-header">
-      <strong>{{ props.product.name }}</strong>
-      <span class="product-id">#{{ props.product.id }}</span>
-    </div>
-
-    <p class="product-description">
-      {{ props.product.description }}
-    </p>
-
-    <div class="product-footer">
-      <span class="price">Prix: {{ props.product.price }} $</span>
-      <span class="stock">Stock: {{ props.product.stock }}</span>
-
-      <div class="product-actions">
-        <button
-          class="btn-update"
-          @click.stop="$emit('update-product', props.product)"
-        >
-          Modifier
-        </button>
-        <button
-          class="btn-delete"
-          @click.stop="$emit('delete-product', props.product.id)"
-        >
-          Supprimer
-        </button>
-        <button class="duplicate-btn" @click.stop="$emit('duplicate-product', props.product)">
-          Dupliquer
-        </button>
+    <td class="product-cell">
+      <div class="product-header">
+        <strong>{{ props.product.name }}</strong>
+        <span class="product-id">#{{ props.product.id }}</span>
       </div>
-    </div>
-  </li>
+
+      <p class="product-description">
+        {{ props.product.description }}
+      </p>
+
+      <div class="product-footer">
+        <span class="price">Prix: {{ props.product.price }} $</span>
+        <span class="stock">Stock: {{ props.product.stock }}</span>
+
+        <div class="product-actions">
+          <button
+            class="btn-update"
+            @click.stop="$emit('update-product', props.product)"
+          >
+            Modifier
+          </button>
+
+          <button
+            class="btn-delete"
+            @click.stop="$emit('delete-product', props.product.id)"
+          >
+            Supprimer
+          </button>
+
+          <button
+            class="duplicate-btn"
+            @click.stop="$emit('duplicate-product', props.product)"
+          >
+            Dupliquer
+          </button>
+        </div>
+      </div>
+    </td>
+  </tr>
 </template>
 <style scoped>
-.product-card {
-  text-decoration: none;
-  background: white;
-  border: 1px solid #ddd;
-  border-radius: 6px;
+.product-card td {
+  padding: 0;
+  border: none;
+}
+
+/* cellule contenant la carte */
+.product-cell {
+  width: 100%;
   padding: 12px;
-  margin-bottom: 10px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* CARTE PRODUIT */
+.product-card > td {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
   cursor: pointer;
-  transition: transform 0.1s ease;
+  transition: transform 0.15s ease, background 0.15s ease;
 }
 
-.product-card:hover {
+.product-card:hover > td {
   transform: scale(1.01);
+  background: rgba(255,255,255,0.06);
 }
 
+/* HEADER */
 .product-header {
   display: flex;
   justify-content: space-between;
-  font-size: 1.1em;
-  margin-bottom: 5px;
+  font-size: 1.05em;
+  margin-bottom: 6px;
 }
 
 .product-id {
-  color: #888;
+  color: rgba(255,255,255,0.5);
+  font-size: 0.85em;
 }
 
+/* DESCRIPTION */
 .product-description {
   font-size: 0.9em;
-  color: #555;
+  color: rgba(255,255,255,0.7);
   margin-bottom: 10px;
 }
 
-/* -------- FOOTER ALIGNEMENT PARFAIT -------- */
-
+/* FOOTER ALIGNEMENT */
 .product-footer {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  margin-top: 12px;
+  margin-top: 10px;
 }
 
-/* PRIX - gauche */
+/* PRIX */
 .price {
   font-weight: bold;
-  color: #2a9d8f;
+  color: #2dd4bf;
 }
 
-/* STOCK - parfaitement centré */
+/* STOCK */
 .stock {
   justify-self: center;
   font-weight: bold;
-  color: #e76f51;
+  color: #fb7185;
 }
 
-/* BOUTONS - droite */
+/* ACTIONS */
 .product-actions {
   display: flex;
-  gap: 8px;
+  gap: 6px;
 }
 
-.product-actions .duplicate-btn {
-  background-color: #f59e0b; /* couleur orange pour différencier */
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 5px 10px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.product-actions .duplicate-btn:hover {
-  background-color: #d97706; /* orange plus foncé au survol */
-}
-
-/* Boutons */
+/* BOUTONS */
 button {
-  padding: 5px 10px;
+  padding: 4px 9px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  font-size: 0.85em;
+  font-size: 0.8em;
+  transition: 0.15s;
 }
 
+/* Modifier */
 .btn-update {
-  background-color: #2196f3;
+  background: #3b82f6;
   color: white;
 }
 
+.btn-update:hover {
+  background: #2563eb;
+}
+
+/* Supprimer */
 .btn-delete {
-  background-color: #f44336;
+  background: #ef4444;
   color: white;
 }
 
-/* -------- COULEURS STOCK -------- */
-
-.stock-high {
-  background-color: rgba(76, 175, 80, 0.12);
-  border: 1px solid rgba(76, 175, 80, 0.4);
+.btn-delete:hover {
+  background: #dc2626;
 }
 
-.stock-medium {
-  background-color: rgba(255, 235, 59, 0.12);
-  border: 1px solid rgba(255, 235, 59, 0.4);
+/* Dupliquer */
+.duplicate-btn {
+  background: #f59e0b;
+  color: white;
+  font-weight: 600;
 }
 
-.stock-low {
-  background-color: rgba(244, 67, 54, 0.12);
-  border: 1px solid rgba(244, 67, 54, 0.4);
+.duplicate-btn:hover {
+  background: #d97706;
+}
+
+/* COULEURS STOCK */
+
+.stock-high > td {
+  background: rgba(34,197,94,0.12);
+  border: 1px solid rgba(34,197,94,0.35);
+}
+
+.stock-medium > td {
+  background: rgba(250,204,21,0.12);
+  border: 1px solid rgba(250,204,21,0.35);
+}
+
+.stock-low > td {
+  background: rgba(239,68,68,0.12);
+  border: 1px solid rgba(239,68,68,0.35);
 }
 </style>

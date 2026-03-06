@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AddProductForm from "./AddProductFormComponent.vue";
-import type { Product } from "../scripts/productType";
+import type { Product } from "../scripts/product";
 import ProductList from "./ProductListComponent.vue";
 import ShowProduct from "./ShowProduct.vue";
 import { ref } from "vue";
@@ -139,6 +139,17 @@ const duplicateProduct = (product: Product) => {
 <template>
   <h2>Système de Gestion de Produits</h2>
   <div>
+    
+    <div v-if="!isUpdatingProduct">
+      <AddProductForm ref="addProductForm" @create-product="addProduct" />
+    </div>
+    <div v-if="isUpdatingProduct">
+      <UpdateProductForm
+      v-bind:product="productToUpdate!"
+      @update-product="updateProduct"
+      />
+    </div>
+    
     <div>
       <ProductList
         :products="products"
@@ -149,16 +160,7 @@ const duplicateProduct = (product: Product) => {
       />
     </div>
 
-    <div v-if="!isUpdatingProduct">
-      <AddProductForm ref="addProductForm" @create-product="addProduct" />
-    </div>
-    <div v-if="isUpdatingProduct">
-      <UpdateProductForm
-        v-bind:product="productToUpdate!"
-        @update-product="updateProduct"
-      />
-    </div>
-
+    <h2>Description du produit selectionné</h2>
     <div v-if="selectedProduct">
       <ShowProduct :product="selectedProduct" />
     </div>

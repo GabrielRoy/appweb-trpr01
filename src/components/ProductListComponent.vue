@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Product } from "../scripts/productType";
+import type { Product } from "../scripts/product";
 import { computed } from "vue";
 import ProductListItem from "./ProductListItemComponent.vue";
 
@@ -20,8 +20,8 @@ const criticalStocks = computed(() =>
 </script>
 <template>
   <h2>Liste des produits</h2>
-  <div class="scroll-zone">
-    <ul class="product-list">
+  <div class="list-zone">
+    <table class="product-list">
       <ProductListItem
         v-for="product in products"
         :key="product.id"
@@ -31,7 +31,7 @@ const criticalStocks = computed(() =>
         @delete-product="$emit('delete-product', product.id)"
         @duplicate-product="$emit('duplicate-product', product)"
       />
-    </ul>
+    </table>
   </div>
 
   <!--Générer par l'IA-->
@@ -45,30 +45,38 @@ const criticalStocks = computed(() =>
   </div>
 </template>
 <style scoped>
-.scroll-zone {
-  max-height: 500px;
-  overflow-y: auto;
-  border: 1px solid rgba(255, 255, 255, 0.08); /* bordure douce */
+.list-zone {
+  border: 1px solid rgba(255, 255, 255, 0.08);
   padding: 0.5rem;
-  border-radius: 8px; /* coins arrondis */
-  background-color: rgba(255, 255, 255, 0.03); /* léger fond transparent */
-  backdrop-filter: blur(4px); /* effet verre dépoli subtil */
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* ombre douce */
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
 }
 
 .product-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* espace entre les cartes */
 }
 
+.product-list td {
+  padding: 0;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.product-list tr:hover {
+  background: rgba(255,255,255,0.05);
+}
+
+/* notifications */
 .notification-field {
   background-color: #330000;
   color: #f44336;
   border: 1px solid #f44336;
   padding: 0.5rem 0.75rem;
   border-radius: 6px;
-  margin-top: 1rem; /* espace avec la liste */
+  margin-top: 1rem;
   font-weight: bold;
 }
 
