@@ -6,66 +6,17 @@ import ShowProduct from "./ShowProduct.vue";
 import { ref } from "vue";
 import UpdateProductForm from "./UpdateProductFormComponent.vue";
 
-let products = ref<Product[]>([
-  {
-    id: 1,
-    name: "Produit 1",
-    price: 10.99,
-    description: "Description du Produit 1",
-    stock: 100,
-  },
-  {
-    id: 2,
-    name: "Produit 2",
-    price: 19.99,
-    description: "Description du Produit 2",
-    stock: 100,
-  },
-  {
-    id: 3,
-    name: "Produit 3",
-    price: 29.99,
-    description: "Description du Produit 3",
-    stock: 50,
-  },
-  {
-    id: 4,
-    name: "Produit 4",
-    price: 39.99,
-    description: "Description du Produit 4",
-    stock: 75,
-  },
-  {
-    id: 5,
-    name: "Produit 5",
-    price: 49.99,
-    description: "Description du Produit 5",
-    stock: 25,
-  },
-]);
+let products = ref<Product[]>([]);
 
 let searchQuery = ref<string>("");
 
-let selectedProduct = ref<Product | null>({
-  id: 1,
-  name: "Produit Test",
-  description: "Description du produit test",
-  price: 25.0,
-  stock: 10,
-});
+let selectedProduct = ref<Product | null>(null);
 
 let isUpdatingProduct = ref<boolean>(false);
 
-let productToUpdate = ref<Product | null>({
-  id: 1,
-  name: "Produit Test",
-  description: "Description du produit test",
-  price: 25.0,
-  stock: 10,
-});
+let productToUpdate = ref<Product | null>(null);
 
 let errorMessages = ref<string[]>([]);
-
 
 let confirmationMessage = ref<string[]>([]);
 
@@ -106,6 +57,8 @@ function updateProduct(updatedProduct: Product) {
     );
     console.error(`Product with id ${updatedProduct.id} not found.`);
   }
+
+  isUpdatingProduct.value = false;
 }
 
 function exportProductsInCSV() {
@@ -120,7 +73,6 @@ function productToUpdateClick(product: Product) {
   productToUpdate.value = product;
   isUpdatingProduct.value = true;
 }
-
 
 //Codé par l'IA
 // Ref pour accéder au formulaire
@@ -138,17 +90,16 @@ const duplicateProduct = (product: Product) => {
 <template>
   <h2>Système de Gestion de Produits</h2>
   <div>
-    
     <div v-if="!isUpdatingProduct">
       <AddProductForm ref="addProductForm" @create-product="addProduct" />
     </div>
     <div v-if="isUpdatingProduct">
       <UpdateProductForm
-      v-bind:product="productToUpdate!"
-      @update-product="updateProduct"
+        v-bind:product="productToUpdate!"
+        @update-product="updateProduct"
       />
     </div>
-    
+
     <div>
       <ProductList
         :products="products"
@@ -159,9 +110,11 @@ const duplicateProduct = (product: Product) => {
       />
     </div>
 
-    <h2>Description du produit selectionné</h2>
     <div v-if="selectedProduct">
-      <ShowProduct :product="selectedProduct" />
+      <h2>Description du produit selectionné</h2>
+      <div v-if="selectedProduct">
+        <ShowProduct :product="selectedProduct" />
+      </div>
     </div>
   </div>
 </template>

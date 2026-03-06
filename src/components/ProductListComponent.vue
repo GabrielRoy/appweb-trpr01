@@ -23,6 +23,7 @@ const criticalStocks = computed(() =>
   <div class="list-zone">
     <table class="product-list">
       <ProductListItem
+        v-if="products.length > 0"
         v-for="product in products"
         :key="product.id"
         :product="product"
@@ -31,6 +32,15 @@ const criticalStocks = computed(() =>
         @delete-product="$emit('delete-product', product.id)"
         @duplicate-product="$emit('duplicate-product', product)"
       />
+      <tr v-else>
+        <td
+          colspan="3"
+          class="text-center p-4"
+          style="color: rgba(255, 255, 255, 0.6)"
+        >
+          Aucun produit disponible pour le moment.
+        </td>
+      </tr>
     </table>
   </div>
 
@@ -62,11 +72,11 @@ const criticalStocks = computed(() =>
 
 .product-list td {
   padding: 0;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .product-list tr:hover {
-  background: rgba(255,255,255,0.05);
+  background: rgba(255, 255, 255, 0.05);
 }
 
 /* notifications */

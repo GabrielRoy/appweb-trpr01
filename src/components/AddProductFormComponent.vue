@@ -25,13 +25,22 @@ const createProduct = () => {
   errorsStock.value = "";
 
   // Validation
-  if (!newName.value.trim()) errorsName.value = "Le nom du jeu vidéo est requis.";
-  if (!newDescription.value.trim()) errorsDescription.value = "La description est requise.";
-  if (newPrice.value < 0) errorsPrice.value = "Le prix doit être supérieur ou égal à 0.";
-  if (newStock.value < 0) errorsStock.value = "Le stock doit être supérieur ou égal à 0.";
+  if (!newName.value.trim())
+    errorsName.value = "Le nom du jeu vidéo est requis.";
+  if (!newDescription.value.trim())
+    errorsDescription.value = "La description est requise.";
+  if (newPrice.value < 0)
+    errorsPrice.value = "Le prix doit être supérieur ou égal à 0.";
+  if (newStock.value < 0)
+    errorsStock.value = "Le stock doit être supérieur ou égal à 0.";
 
   // Stop si au moins une erreur
-  if (errorsName.value || errorsDescription.value || errorsPrice.value || errorsStock.value)
+  if (
+    errorsName.value ||
+    errorsDescription.value ||
+    errorsPrice.value ||
+    errorsStock.value
+  )
     return;
 
   // Création du produit
@@ -52,7 +61,6 @@ const createProduct = () => {
   newStock.value = 0;
 };
 
-
 //Donné par l'IA
 //Je sais que cela permet d'envoyer au ref des données a partir des parents
 defineExpose({
@@ -61,7 +69,6 @@ defineExpose({
   newPrice,
   newStock,
 });
-
 </script>
 <template>
   <div class="pt-4">
@@ -81,9 +88,10 @@ defineExpose({
       </div>
     </div>
 
-    <!-- Description -->
     <div class="mb-3">
-      <label for="product-description" class="form-label">Description du jeu vidéo:</label>
+      <label for="product-description" class="form-label"
+        >Description du jeu vidéo:</label
+      >
       <input
         type="text"
         v-model="newDescription"
@@ -97,7 +105,6 @@ defineExpose({
       </div>
     </div>
 
-    <!-- Prix -->
     <div class="mb-3">
       <label for="product-price" class="form-label">Prix du jeu vidéo:</label>
       <input
@@ -113,7 +120,6 @@ defineExpose({
       </div>
     </div>
 
-    <!-- Stock -->
     <div class="mb-3">
       <label for="product-stock" class="form-label">Stock du jeu vidéo:</label>
       <input

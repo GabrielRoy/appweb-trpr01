@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import type { Product } from "../scripts/product";
+import { ref } from "vue";
+
 const props = defineProps<{
   product: Product;
 }>();
@@ -7,16 +9,28 @@ const props = defineProps<{
 function stockClass(stock: number) {
   if (stock > 20) return "stock-high";
   if (stock > 10) return "stock-medium";
-  if (stock > 0) return "stock-low";
   return "stock-low";
 }
 
-defineEmits<{
+function stockTextClass(stock: number) {
+  if (stock > 20) return "stock-text-high";
+  if (stock > 10) return "stock-text-medium";
+  return "stock-text-low";
+}
+
+const emit = defineEmits<{
   (e: "show-product", product: Product): void;
   (e: "update-product", product: Product): void;
   (e: "delete-product", productId: number): void;
   (e: "duplicate-product", product: Product): void;
 }>();
+
+const showConfirm = ref(false);
+
+function deleteProduct() {
+  emit("delete-product", props.product.id);
+  showConfirm.value = false;
+}
 </script>
 <template>
   <tr
@@ -25,40 +39,56 @@ defineEmits<{
     @click="$emit('show-product', props.product)"
   >
     <td class="product-cell">
-      <div class="product-header">
-        <strong>{{ props.product.name }}</strong>
-        <span class="product-id">#{{ props.product.id }}</span>
+      <div v-if="showConfirm" class="confirm-overlay">
+        <div class="confirm-card">
+          <p>
+            Supprimer le produit <strong>{{ props.product.name }}</strong> ?
+          </p>
+          <div class="confirm-actions">
+            <button class="btn btn-secondary" @click="showConfirm = false">
+              Annuler
+            </button>
+            <button class="btn btn-danger" @click="deleteProduct">
+              Supprimer
+            </button>
+          </div>
+        </div>
       </div>
+      <div v-else>
+        <div class="product-header">
+          <strong>{{ props.product.name }}</strong>
+          <span class="product-id">#{{ props.product.id }}</span>
+        </div>
 
-      <p class="product-description">
-        {{ props.product.description }}
-      </p>
+        <p class="product-description">
+          {{ props.product.description }}
+        </p>
 
-      <div class="product-footer">
-        <span class="price">Prix: {{ props.product.price }} $</span>
-        <span class="stock">Stock: {{ props.product.stock }}</span>
+        <div class="product-footer">
+          <span class="price">Prix: {{ props.product.price }} $</span>
+          <span class="stock" :class="stockTextClass(props.product.stock)">
+            Stock: {{ props.product.stock }}
+          </span>
 
-        <div class="product-actions">
-          <button
-            class="btn-update"
-            @click.stop="$emit('update-product', props.product)"
-          >
-            Modifier
-          </button>
+          <div class="product-actions">
+            <button
+              class="btn-update"
+              @click.stop="$emit('update-product', props.product)"
+            >
+              Modifier
+            </button>
 
-          <button
-            class="btn-delete"
-            @click.stop="$emit('delete-product', props.product.id)"
-          >
-            Supprimer
-          </button>
+            <button class="btn-delete" @click.stop="showConfirm = true">
+              Supprimer
+            </button>
 
-          <button
-            class="duplicate-btn"
-            @click.stop="$emit('duplicate-product', props.product)"
-          >
-            Dupliquer
-          </button>
+            <button
+              class="duplicate-btn"
+              @click.stop="$emit('duplicate-product', props.product)"
+            >
+              Dupliquer
+            </button>
+          </div>
         </div>
       </div>
     </td>
@@ -81,18 +111,20 @@ defineEmits<{
 
 /* CARTE PRODUIT */
 .product-card > td {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   padding: 12px;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
   cursor: pointer;
-  transition: transform 0.15s ease, background 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease;
 }
 
 .product-card:hover > td {
   transform: scale(1.01);
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
 }
 
 /* HEADER */
@@ -104,14 +136,14 @@ defineEmits<{
 }
 
 .product-id {
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.85em;
 }
 
 /* DESCRIPTION */
 .product-description {
   font-size: 0.9em;
-  color: rgba(255,255,255,0.7);
+  color: rgba(255, 255, 255, 0.7);
   margin-bottom: 10px;
 }
 
@@ -186,17 +218,29 @@ button {
 /* COULEURS STOCK */
 
 .stock-high > td {
-  background: rgba(34,197,94,0.12);
-  border: 1px solid rgba(34,197,94,0.35);
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
 }
 
 .stock-medium > td {
-  background: rgba(250,204,21,0.12);
-  border: 1px solid rgba(250,204,21,0.35);
+  background: rgba(250, 204, 21, 0.12);
+  border: 1px solid rgba(250, 204, 21, 0.35);
 }
 
 .stock-low > td {
-  background: rgba(239,68,68,0.12);
-  border: 1px solid rgba(239,68,68,0.35);
+  background: rgba(239, 68, 68, 0.12);
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.stock-text-high {
+  color: #22c55e; /* vert */
+}
+
+.stock-text-medium {
+  color: #facc15; /* jaune */
+}
+
+.stock-text-low {
+  color: #ef4444; /* rouge */
 }
 </style>
