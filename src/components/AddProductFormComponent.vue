@@ -12,23 +12,27 @@ let newDescription = ref<string>("");
 let newPrice = ref<number>(0);
 let newStock = ref<number>(0);
 
-const errors = ref<string[]>([]);
+const errorsName = ref("");
+const errorsDescription = ref("");
+const errorsPrice = ref("");
+const errorsStock = ref("");
 
-//Créer à l'aide de l'IA
 const createProduct = () => {
-  errors.value = []; // reset
+  // reset erreurs
+  errorsName.value = "";
+  errorsDescription.value = "";
+  errorsPrice.value = "";
+  errorsStock.value = "";
 
   // Validation
-  if (!newName.value.trim())
-    errors.value.push("Le nom du jeu vidéo est requis.");
-  if (!newDescription.value.trim())
-    errors.value.push("La description est requise.");
-  if (newPrice.value < 0)
-    errors.value.push("Le prix doit être supérieur ou égal à 0.");
-  if (newStock.value < 0)
-    errors.value.push("Le stock doit être supérieur ou égal à 0.");
+  if (!newName.value.trim()) errorsName.value = "Le nom du jeu vidéo est requis.";
+  if (!newDescription.value.trim()) errorsDescription.value = "La description est requise.";
+  if (newPrice.value < 0) errorsPrice.value = "Le prix doit être supérieur ou égal à 0.";
+  if (newStock.value < 0) errorsStock.value = "Le stock doit être supérieur ou égal à 0.";
 
-  if (errors.value.length > 0) return; // stop si erreurs
+  // Stop si au moins une erreur
+  if (errorsName.value || errorsDescription.value || errorsPrice.value || errorsStock.value)
+    return;
 
   // Création du produit
   emit("create-product", {
@@ -62,56 +66,72 @@ defineExpose({
 <template>
   <div class="pt-4">
     <h3 class="pb-2">Création de jeu vidéo</h3>
-    <div>
-      <div>
-        <label for="product-name">Nom du jeu vidéo:</label>
-        <input
-          type="text"
-          v-model="newName"
-          placeholder="Nom du jeu vidéo"
-          id="product-name"
-        />
-      </div>
-      <div>
-        <label for="product-description">Description du jeu vidéo:</label>
-        <input
-          type="text"
-          v-model="newDescription"
-          placeholder="Description du jeu vidéo"
-          id="product-description"
-        />
-      </div>
-      <div>
-        <label for="product-price">Prix du jeu vidéo:</label>
-        <input
-          type="number"
-          v-model="newPrice"
-          placeholder="Prix du jeu vidéo"
-          id="product-price"
-        />
-      </div>
-      <div>
-        <label for="product-stock">Stock du jeu vidéo:</label>
-        <input
-          type="number"
-          v-model="newStock"
-          placeholder="Stock du jeu vidéo"
-          id="product-stock"
-        />
-      </div>
-      <button
-        @click="
-          createProduct()
-        "
-      >
-        Ajouter le produit
-      </button>
-      <div v-if="errors.length" class="error-field">
-        <ul>
-          <li v-for="(error, index) in errors" :key="index">{{ error }}</li>
-        </ul>
+    <div class="mb-3">
+      <label for="product-name" class="form-label">Nom du jeu vidéo:</label>
+      <input
+        type="text"
+        v-model="newName"
+        placeholder="Nom du jeu vidéo"
+        id="product-name"
+        class="form-control"
+        :class="{ 'is-invalid': errorsName }"
+      />
+      <div v-if="errorsName" class="invalid-feedback">
+        {{ errorsName }}
       </div>
     </div>
+
+    <!-- Description -->
+    <div class="mb-3">
+      <label for="product-description" class="form-label">Description du jeu vidéo:</label>
+      <input
+        type="text"
+        v-model="newDescription"
+        placeholder="Description du jeu vidéo"
+        id="product-description"
+        class="form-control"
+        :class="{ 'is-invalid': errorsDescription }"
+      />
+      <div v-if="errorsDescription" class="invalid-feedback">
+        {{ errorsDescription }}
+      </div>
+    </div>
+
+    <!-- Prix -->
+    <div class="mb-3">
+      <label for="product-price" class="form-label">Prix du jeu vidéo:</label>
+      <input
+        type="number"
+        v-model="newPrice"
+        placeholder="Prix du jeu vidéo"
+        id="product-price"
+        class="form-control"
+        :class="{ 'is-invalid': errorsPrice }"
+      />
+      <div v-if="errorsPrice" class="invalid-feedback">
+        {{ errorsPrice }}
+      </div>
+    </div>
+
+    <!-- Stock -->
+    <div class="mb-3">
+      <label for="product-stock" class="form-label">Stock du jeu vidéo:</label>
+      <input
+        type="number"
+        v-model="newStock"
+        placeholder="Stock du jeu vidéo"
+        id="product-stock"
+        class="form-control"
+        :class="{ 'is-invalid': errorsStock }"
+      />
+      <div v-if="errorsStock" class="invalid-feedback">
+        {{ errorsStock }}
+      </div>
+    </div>
+
+    <button class="btn btn-primary" @click="createProduct()">
+      Ajouter le produit
+    </button>
   </div>
 </template>
 <style scoped>

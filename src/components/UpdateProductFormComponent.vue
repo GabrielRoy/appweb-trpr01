@@ -10,30 +10,34 @@ const emit = defineEmits<{
   (e: "update-product", updatedProduct: Product): void;
 }>();
 
-let newName = ref<string>(props.product.name);
-let newDescription = ref<string>(props.product.description);
-let newPrice = ref<number>(props.product.price);
-let newStock = ref<number>(props.product.stock);
+const newName = ref<string>(props.product.name);
+const newDescription = ref<string>(props.product.description);
+const newPrice = ref<number>(props.product.price);
+const newStock = ref<number>(props.product.stock);
 
-const errors = ref<string[]>([]);
+const errorsName = ref("");
+const errorsDescription = ref("");
+const errorsPrice = ref("");
+const errorsStock = ref("");
 
-//Créer à l'aide de l'IA
 const updateProduct = () => {
-  errors.value = []; // reset
+  // reset erreurs
+  errorsName.value = "";
+  errorsDescription.value = "";
+  errorsPrice.value = "";
+  errorsStock.value = "";
 
   // Validation
-  if (!newName.value.trim())
-    errors.value.push("Le nom du jeu vidéo est requis.");
-  if (!newDescription.value.trim())
-    errors.value.push("La description est requise.");
-  if (newPrice.value < 0)
-    errors.value.push("Le prix doit être supérieur ou égal à 0.");
-  if (newStock.value < 0)
-    errors.value.push("Le stock doit être supérieur ou égal à 0.");
+  if (!newName.value.trim()) errorsName.value = "Le nom du jeu vidéo est requis.";
+  if (!newDescription.value.trim()) errorsDescription.value = "La description est requise.";
+  if (newPrice.value < 0) errorsPrice.value = "Le prix doit être supérieur ou égal à 0.";
+  if (newStock.value < 0) errorsStock.value = "Le stock doit être supérieur ou égal à 0.";
 
-  if (errors.value.length > 0) return; // stop si erreurs
+  // Stop si au moins une erreur
+  if (errorsName.value || errorsDescription.value || errorsPrice.value || errorsStock.value)
+    return;
 
-  // Emit update si tout est OK
+  // Emit update
   emit("update-product", {
     id: props.product.id,
     name: newName.value,
@@ -46,50 +50,70 @@ const updateProduct = () => {
 <template>
   <div class="pt-4">
     <h3 class="pb-2">Modification du jeu vidéo</h3>
-    <div>
-      <div>
-        <label for="product-name">Nom du jeu vidéo:</label>
-        <input
-          type="text"
-          v-model="newName"
-          placeholder="Nom du jeu vidéo"
-          id="product-name"
-        />
-      </div>
-      <div>
-        <label for="product-description">Description du jeu vidéo:</label>
-        <input
-          type="text"
-          v-model="newDescription"
-          placeholder="Description du jeu vidéo"
-          id="product-description"
-        />
-      </div>
-      <div>
-        <label for="product-price">Prix du jeu vidéo:</label>
-        <input
-          type="number"
-          v-model="newPrice"
-          placeholder="Prix du jeu vidéo"
-          id="product-price"
-        />
-      </div>
-      <div>
-        <label for="product-stock">Stock du jeu vidéo:</label>
-        <input
-          type="number"
-          v-model="newStock"
-          placeholder="Stock du jeu vidéo"
-          id="product-stock"
-        />
-      </div>
-      <button @click="updateProduct()">Modifier le produit</button>
-      <div v-if="errors.length" class="error-field">
-        <ul>
-          <li v-for="(err, i) in errors" :key="i">{{ err }}</li>
-        </ul>
+
+    <div class="mb-3">
+      <label for="product-name" class="form-label">Nom du jeu vidéo:</label>
+      <input
+        type="text"
+        v-model="newName"
+        placeholder="Nom du jeu vidéo"
+        id="product-name"
+        class="form-control"
+        :class="{ 'is-invalid': errorsName }"
+      />
+      <div v-if="errorsName" class="invalid-feedback">
+        {{ errorsName }}
       </div>
     </div>
+
+    <div class="mb-3">
+      <label for="product-description" class="form-label">Description du jeu vidéo:</label>
+      <input
+        type="text"
+        v-model="newDescription"
+        placeholder="Description du jeu vidéo"
+        id="product-description"
+        class="form-control"
+        :class="{ 'is-invalid': errorsDescription }"
+      />
+      <div v-if="errorsDescription" class="invalid-feedback">
+        {{ errorsDescription }}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="product-price" class="form-label">Prix du jeu vidéo:</label>
+      <input
+        type="number"
+        v-model="newPrice"
+        placeholder="Prix du jeu vidéo"
+        id="product-price"
+        class="form-control"
+        :class="{ 'is-invalid': errorsPrice }"
+      />
+      <div v-if="errorsPrice" class="invalid-feedback">
+        {{ errorsPrice }}
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="product-stock" class="form-label">Stock du jeu vidéo:</label>
+      <input
+        type="number"
+        v-model="newStock"
+        placeholder="Stock du jeu vidéo"
+        id="product-stock"
+        class="form-control"
+        :class="{ 'is-invalid': errorsStock }"
+      />
+      <div v-if="errorsStock" class="invalid-feedback">
+        {{ errorsStock }}
+      </div>
+    </div>
+
+    <button @click="updateProduct()" class="btn btn-primary">
+      Modifier le produit
+    </button>
   </div>
 </template>
 <style scoped>
