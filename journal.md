@@ -68,7 +68,7 @@ Avancer le projet (pas de vrai objectif en tête)
 - Fais que les produit puissent être modifié
 - Fais afficher les messages d'erreur des formulaire
 - Fais afficher un message lorsque qu'un stock est critique
-
+- Ajouter les boutons Modifier, supprimer et dupliquer
 ---
 
 ## Séance 5 — _AAAA-MM-JJ_ (Durée : _XhYm_)

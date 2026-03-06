@@ -83,19 +83,7 @@ const updateProduct = () => {
           id="product-stock"
         />
       </div>
-      <button
-        @click="
-          emit('update-product', {
-            id: props.product.id,
-            name: newName,
-            description: newDescription,
-            price: newPrice,
-            stock: newStock,
-          })
-        "
-      >
-        Modifier le produit
-      </button>
+      <button @click="updateProduct()">Modifier le produit</button>
       <div v-if="errors.length" class="error-field">
         <ul>
           <li v-for="(err, i) in errors" :key="i">{{ err }}</li>

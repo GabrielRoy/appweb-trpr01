@@ -66,7 +66,6 @@ let productToUpdate = ref<Product | null>({
 
 let errorMessages = ref<string[]>([]);
 
-let warningMessages = ref<string[]>([]);
 
 let confirmationMessage = ref<string[]>([]);
 
