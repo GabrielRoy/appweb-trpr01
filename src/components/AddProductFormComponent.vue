@@ -25,12 +25,18 @@ const createProduct = () => {
   errorsStock.value = "";
 
   // Validation
-  if (!newName.value.trim())
-    errorsName.value = "Le nom du jeu vidéo est requis.";
+  if (!newName.value.trim() || newName.value.trim().length < 3)
+    errorsName.value =
+      "Le nom du jeu vidéo est requis avec 3 caractères minimum.";
+
   if (!newDescription.value.trim())
     errorsDescription.value = "La description est requise.";
+
   if (newPrice.value < 0)
     errorsPrice.value = "Le prix doit être supérieur ou égal à 0.";
+  else if (!Number.isInteger(newPrice.value * 100))
+    errorsPrice.value = "Le prix ne peut pas avoir plus de deux décimales.";
+
   if (newStock.value < 0)
     errorsStock.value = "Le stock doit être supérieur ou égal à 0.";
 
