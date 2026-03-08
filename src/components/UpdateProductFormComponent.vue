@@ -8,6 +8,7 @@ const props = defineProps<{
 
 const emit = defineEmits<{
   (e: "update-product", updatedProduct: Product): void;
+  (e: "cancel"): void;
 }>();
 
 const newName = ref<string>(props.product.name);
@@ -111,8 +112,11 @@ const updateProduct = () => {
       </div>
     </div>
 
-    <button @click="updateProduct()" class="btn btn-primary">
+    <button @click="updateProduct()" class="btn btn-primary me-2">
       Modifier le produit
+    </button>
+    <button @click="$emit('cancel')" class="btn btn-cancel">
+      Annuler
     </button>
   </div>
 </template>
@@ -208,5 +212,15 @@ button:active {
 
 .error-field li {
   line-height: 1.3rem;
+}
+
+.btn-cancel {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+  color: white;
+}
+
+.btn-cancel:hover {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  transform: translateY(-2px);
 }
 </style>

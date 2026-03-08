@@ -42,7 +42,7 @@ function deleteProduct() {
       <div v-if="showConfirm" class="confirm-overlay">
         <div class="confirm-card">
           <p>
-            Supprimer le produit <strong>{{ props.product.name }}</strong> ?
+            Supprimer le jeu vidéo <strong>{{ props.product.name }}</strong> ?
           </p>
           <div class="confirm-actions">
             <button class="btn btn-secondary" @click="showConfirm = false">

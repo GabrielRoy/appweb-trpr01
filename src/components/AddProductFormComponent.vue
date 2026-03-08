@@ -136,7 +136,7 @@ defineExpose({
     </div>
 
     <button class="btn btn-primary" @click="createProduct()">
-      Ajouter le produit
+      Ajouter le jeu vidéo
     </button>
   </div>
 </template>

@@ -8,8 +8,6 @@ import UpdateProductForm from "./UpdateProductFormComponent.vue";
 
 let products = ref<Product[]>([]);
 
-let searchQuery = ref<string>("");
-
 let selectedProduct = ref<Product | null>(null);
 
 let isUpdatingProduct = ref<boolean>(false);
@@ -118,7 +116,7 @@ const duplicateProduct = (product: Product) => {
 </script>
 
 <template>
-  <h2>Système de Gestion de Produits</h2>
+  <h2>Système d'inventaire du magasin</h2>
   <div>
     <div v-if="!isUpdatingProduct">
       <AddProductForm ref="addProductForm" @create-product="addProduct" />
@@ -127,6 +125,7 @@ const duplicateProduct = (product: Product) => {
       <UpdateProductForm
         v-bind:product="productToUpdate!"
         @update-product="updateProduct"
+        @cancel="isUpdatingProduct = false"
       />
     </div>
 

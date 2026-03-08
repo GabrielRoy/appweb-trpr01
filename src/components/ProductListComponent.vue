@@ -2,6 +2,8 @@
 import type { Product } from "../scripts/product";
 import { computed } from "vue";
 import ProductListItem from "./ProductListItemComponent.vue";
+import SearchQueryComponent from "./SearchQueryComponent.vue";
+import { ref } from "vue";
 
 const props = defineProps<{
   products: Product[];
@@ -18,14 +20,28 @@ defineEmits<{
 const criticalStocks = computed(() =>
   props.products.filter((product: Product) => product.stock <= 3),
 );
+
+let searchQuery = ref<string>("");
+
+
+const filteredProducts = computed(() => {
+  const query = searchQuery.value.trim().toLowerCase();
+  if (!query) return props.products;
+
+  return props.products.filter((product: Product) =>
+    product.name.toLowerCase().includes(query),
+  );
+});
+
 </script>
 <template>
-  <h2>Liste des produits</h2>
+  <h2>Liste des jeux vidéo</h2>
   <div class="list-zone">
+    <SearchQueryComponent v-model="searchQuery" placeholder="Rechercher un jeu vidéo..." @update:searchQuery="searchQuery = $event" />
     <table class="product-list">
       <ProductListItem
-        v-if="products.length > 0"
-        v-for="product in products"
+        v-if="filteredProducts.length > 0"
+        v-for="product in filteredProducts"
         :key="product.id"
         :product="product"
         @show-product="$emit('show-product', product)"

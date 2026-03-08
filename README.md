@@ -21,7 +21,7 @@ Décrire en 5–10 lignes l’application réalisée :
 - Public cible / usage typique :
   Les gestionnaires de l'inventaire du magasin. Il permet de voir le nombre de stock restant facilement, de modifier facilement le contenu de l'inventaire et d'ajouter des produits à celui-ci.
 
-**Produit choisi :** Jeux vidéo
+**Produit choisi :** Système de gestion d'un inventaire d'un magasin de jeux vidéo
 
 ---
 
@@ -36,8 +36,8 @@ Décrire en 5–10 lignes l’application réalisée :
 - [X] Avoir la possibilité de supprimer un produit de l'inventaire.
 - [X] Avoir un affichage clair et visible des produits pour savoir si le stock de celui-ci est bas.
 - [X] Avoir un message d'erreur lorsque le stock d'un produit devient très bas.
-- [ ] Pouvoir trier l'inventaire à l'aide d'un champ de recherche.
-- [ ] Pouvoir exporter le contenu de l'inventaire en .csv.
+- [X] Pouvoir trier l'inventaire à l'aide d'un champ de recherche.
+- [X] Pouvoir exporter le contenu de l'inventaire en .csv.
 
 > Ajouter ici toute fonctionnalité optionnelle (ex. catégorie, actif, date de création, etc.).
 
@@ -45,9 +45,9 @@ Décrire en 5–10 lignes l’application réalisée :
 
 ## 3) Technologies utilisées
 
-- {{ Technologie 1 }}
-- {{ Technologie 2 }}
-- {{ Etc. }}
+- Node.js
+- Vue
+- Bootstrap
 
 ---
 
@@ -60,19 +60,19 @@ Décrire en 5–10 lignes l’application réalisée :
 ### Installation
 
 ```bash
-{{ À compléter }}
+npm install
 ````
 
 ### Démarrage en dev
 
 ```bash
-{{ À compléter }}
+npm run dev
 ```
 
 ### Build
 
 ```bash
-{{ À compléter }}
+npm run build
 ```
 
 ---
@@ -97,14 +97,18 @@ Décrire la structure du projet et les responsabilités.
 
 - `src/components/` : composants UI (responsabilité unique)
 - `src/models/` : types/interfaces TypeScript (ex. `Product`)
-- `src/services/` : logique utilitaire (ex. export CSV)
-- `src/assets/` : images (incluant le logo)
 
 > Adapter à votre projet réel. L’objectif est d’expliquer **où** se trouve la logique et **pourquoi**.
 
 ### Composants clés
 
-- `NomComposant` : description de ce qu'il fait / reponsabilité
+- `AddProductFormComponent` : C'est le formulaire d'ajout d'un produit. Il a comme tâche de prendre en note les informations données et de les vérifier avant de les envoyer au parent qui s'occupe de stocker le nouveau produit.
+- `MainPageComponent` : C'est la base du site. Il détient tous les composant et affiches ceux qui sont nécessaire. Il contient aussi la "DB" pour stocker les produits créés.
+- `ProductListComponent` : C'est l'encadrée autour des produit (le tableau). Il s'occupe de contenir et d'afficher les produits présent dans le stockages et un message de stockage vide si besoin. Il s'occupe aussi de filtrer les produits afficher avec l'aide de SearchQueryComponent.
+- `ProductListItemComponent` : Il s'occupe d'afficher les informations de son produit et de faire d'envoyer ce qui est nécessaire aux parents si une action est demandé par l'utilisateur (delete, update, dupliquer)
+- `SearchQueryComponent` : Il s'occupe de prendre en input le string du nom demandé et l'envoie au parent que lui va trier la liste avec.
+- `ShowProductComponent`: Il s'occupe d'afficher les informations, en format plus détaillé, d'un produit que l'utilisateur a sélectionné dans la liste.
+- `UpdateProductFormComponent` : Il s'occupe, en tant que formulaire, de modifier les informations du produit qu'il a reçu en paramètre.
 
 ---
 
@@ -122,6 +126,7 @@ Décrire la structure du projet et les responsabilités.
 Décrire concrètement :
 
 - Aide au débug
+- Création de méthode
 - css (visuel du site)
 
 ### À quel endroit
@@ -148,7 +153,12 @@ Dans certain fichier avec des méthodes.__
 
 - Ligne 37 à 45: Pour gérer l'affichage des warnings des stock faibles.
 
+#### SearchQueryComponent
+
+- Entièreté du fichier fait avec l'intellisence de VSCODE qui a aidé dès qu'il a vue ce que je voulais faire.
+
 ### Exemples de prompts (2 à 5)
 
 1. “Peux tu me dire comment faire la gestion d'erreur avec ces champs : {Nom, description, stock, prix}”
 2. “Comment fait t'on pour remplir un formulaire avec les informations provenant d'un parent.”
+3. "Comment créons-nous un fichier .csv"
