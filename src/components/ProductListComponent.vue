@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { Product } from "../scripts/product";
+import type { Product } from "../models/product";
 import { computed } from "vue";
 import ProductListItem from "./ProductListItemComponent.vue";
 import SearchQueryComponent from "./SearchQueryComponent.vue";

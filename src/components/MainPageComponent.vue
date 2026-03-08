@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import AddProductForm from "./AddProductFormComponent.vue";
-import type { Product } from "../scripts/product";
+import type { Product } from "../models/product";
 import ProductList from "./ProductListComponent.vue";
 import ShowProduct from "./ShowProduct.vue";
 import { ref } from "vue";

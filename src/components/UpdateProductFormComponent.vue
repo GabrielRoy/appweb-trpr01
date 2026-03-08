@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import type { Product } from "../scripts/product";
+import type { Product } from "../models/product";
 
 const props = defineProps<{
   product: Product;
@@ -29,13 +29,22 @@ const updateProduct = () => {
   errorsStock.value = "";
 
   // Validation
-  if (!newName.value.trim()) errorsName.value = "Le nom du jeu vidéo est requis.";
-  if (!newDescription.value.trim()) errorsDescription.value = "La description est requise.";
-  if (newPrice.value < 0) errorsPrice.value = "Le prix doit être supérieur ou égal à 0.";
-  if (newStock.value < 0) errorsStock.value = "Le stock doit être supérieur ou égal à 0.";
+  if (!newName.value.trim())
+    errorsName.value = "Le nom du jeu vidéo est requis.";
+  if (!newDescription.value.trim())
+    errorsDescription.value = "La description est requise.";
+  if (newPrice.value < 0)
+    errorsPrice.value = "Le prix doit être supérieur ou égal à 0.";
+  if (newStock.value < 0)
+    errorsStock.value = "Le stock doit être supérieur ou égal à 0.";
 
   // Stop si au moins une erreur
-  if (errorsName.value || errorsDescription.value || errorsPrice.value || errorsStock.value)
+  if (
+    errorsName.value ||
+    errorsDescription.value ||
+    errorsPrice.value ||
+    errorsStock.value
+  )
     return;
 
   // Emit update
@@ -68,7 +77,9 @@ const updateProduct = () => {
     </div>
 
     <div class="mb-3">
-      <label for="product-description" class="form-label">Description du jeu vidéo:</label>
+      <label for="product-description" class="form-label"
+        >Description du jeu vidéo:</label
+      >
       <input
         type="text"
         v-model="newDescription"
@@ -115,9 +126,7 @@ const updateProduct = () => {
     <button @click="updateProduct()" class="btn btn-primary me-2">
       Modifier le produit
     </button>
-    <button @click="$emit('cancel')" class="btn btn-cancel">
-      Annuler
-    </button>
+    <button @click="$emit('cancel')" class="btn btn-cancel">Annuler</button>
   </div>
 </template>
 <style scoped>

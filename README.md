@@ -38,6 +38,8 @@ Décrire en 5–10 lignes l’application réalisée :
 - [X] Avoir un message d'erreur lorsque le stock d'un produit devient très bas.
 - [X] Pouvoir trier l'inventaire à l'aide d'un champ de recherche.
 - [X] Pouvoir exporter le contenu de l'inventaire en .csv.
+- [ ] Mettre sur github page.
+
 
 > Ajouter ici toute fonctionnalité optionnelle (ex. catégorie, actif, date de création, etc.).
 
@@ -97,6 +99,8 @@ Décrire la structure du projet et les responsabilités.
 
 - `src/components/` : composants UI (responsabilité unique)
 - `src/models/` : types/interfaces TypeScript (ex. `Product`)
+- `src/scripts/` : script du système.
+- `src/css/` : fichier css du système
 
 > Adapter à votre projet réel. L’objectif est d’expliquer **où** se trouve la logique et **pourquoi**.
 
