@@ -3,7 +3,7 @@
 > **Cours :** 420-W40-SF - Développement d’applications Web (Cégep de Sainte-Foy)
 > **Travail :** TP01 - Gestionnaire de produits
 > **Étudiant(e) :** {{ Gabriel Roy }}
-> **Dernière mise à jour :** {{ 2026-02-20 }}
+> **Dernière mise à jour :** {{ 2026-03-07 }}
 
 ---
 
@@ -44,7 +44,7 @@
 | D4  | MUST     |   ✅   | Avant de suprimer un produit une demande de confirmation est faite à l'utilisateur.                       |                4                 | Le message de confirmation est affiché une fois cliquer sur le boutton.                                           | Afficher la demande de confirmation à la bonne place. (Sur le produit)                        |
 | D5  | MUST     |   ✅   | Avoir la possibilité d'exporter en fichier .csv les produits dans le stockage.                            |                10                | Un fichier .csv est créer et à l'intérieur les informations des produits sont présent.                            | Comprendre comment exporter en .csv                                                           |
 | D6  | MUST     |   ✅   | Filter la liste des produits par le nom                                                                   |                6                 | La liste des produits s'update en entrant quelque chose dans la barre de recherche.                               | Faire qu'elle update correctement en prenant en compte ce que le nom contient et non est.     |
-| E1  | MUST     |   🟦   | Mettre le code sur GitHub page.                                                                           | Demander mais pas dans un récit. | On peut accèder le site sur Github Page.                                                                          | Difficulter à initialiser sur Github page.                                                    |
+| E1  | MUST     |   ✅   | Mettre le code sur GitHub page.                                                                           | Demander mais pas dans un récit. | On peut accèder le site sur Github Page.                                                                          | Difficulter à initialiser sur Github page.                                                    |
 
 ```
 

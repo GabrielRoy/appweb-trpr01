@@ -2,9 +2,9 @@
 
 > **Cours :** 420-W40-SF - Développement d’applications Web (Cégep de Sainte-Foy)
 > **Travail :** TP01 - Gestionnaire de produits
-> **Étudiant(e) :**  Gabriel Roy
-> **Repo GitHub :**  "https://github.com/GabrielRoy/appweb-trpr01"
-> **Déploiement (GitHub Pages) :** {{ URL du site }}
+> **Étudiant(e) :** Gabriel Roy
+> **Repo GitHub :** "https://github.com/GabrielRoy/appweb-trpr01"
+> **Déploiement (GitHub Pages) :** {{ 'https://gabrielroy.github.io/appweb-trpr01/' }}
 
 ---
 
@@ -27,19 +27,18 @@ Décrire en 5–10 lignes l’application réalisée :
 
 ## 2) Fonctionnalités (récits utilisateurs)
 
-- [X] Ajouter un formulaire d'ajout d'un jeu vidéo en entrant les informations.
-- [X] Ajouter un formulaire de modification d'un jeu vidéo en entrant les informations.
-- [X] Afficher la liste des produits dans l'inventaire.
-- [X] Afficher les informations des produits dans l'inventaire.
-- [X] Afficher les informations du produit qui vient d'être selectionné par l'utilisateur.
-- [X] Avoir la possibilité de dupliquer un produit.
-- [X] Avoir la possibilité de supprimer un produit de l'inventaire.
-- [X] Avoir un affichage clair et visible des produits pour savoir si le stock de celui-ci est bas.
-- [X] Avoir un message d'erreur lorsque le stock d'un produit devient très bas.
-- [X] Pouvoir trier l'inventaire à l'aide d'un champ de recherche.
-- [X] Pouvoir exporter le contenu de l'inventaire en .csv.
-- [ ] Mettre sur github page.
-
+- [x] Ajouter un formulaire d'ajout d'un jeu vidéo en entrant les informations.
+- [x] Ajouter un formulaire de modification d'un jeu vidéo en entrant les informations.
+- [x] Afficher la liste des produits dans l'inventaire.
+- [x] Afficher les informations des produits dans l'inventaire.
+- [x] Afficher les informations du produit qui vient d'être selectionné par l'utilisateur.
+- [x] Avoir la possibilité de dupliquer un produit.
+- [x] Avoir la possibilité de supprimer un produit de l'inventaire.
+- [x] Avoir un affichage clair et visible des produits pour savoir si le stock de celui-ci est bas.
+- [x] Avoir un message d'erreur lorsque le stock d'un produit devient très bas.
+- [x] Pouvoir trier l'inventaire à l'aide d'un champ de recherche.
+- [x] Pouvoir exporter le contenu de l'inventaire en .csv.
+- [x] Mettre sur github page.
 
 > Ajouter ici toute fonctionnalité optionnelle (ex. catégorie, actif, date de création, etc.).
 
@@ -63,7 +62,7 @@ Décrire en 5–10 lignes l’application réalisée :
 
 ```bash
 npm install
-````
+```
 
 ### Démarrage en dev
 
@@ -82,7 +81,7 @@ npm run build
 ## 5) Déploiement (GitHub Pages)
 
 - **Nom du repo / dossier GitHub Pages :** `appweb-trpr01`
-- **URL attendue :** {{ `https://<user>.github.io/appweb-trpr01/` }}
+- **URL attendue :** {{ `https://gabrielroy.github.io/appweb-trpr01/` }}
 
 ### Notes de configuration
 
@@ -135,9 +134,9 @@ Décrire concrètement :
 
 ### À quel endroit
 
-_Où le CSS normal et de bootstrap est présent donc tous les fichiers de components.
+\_Où le CSS normal et de bootstrap est présent donc tous les fichiers de components.
 
-Dans certain fichier avec des méthodes.__
+Dans certain fichier avec des méthodes.\_\_
 
 #### MainPageComponent
 
